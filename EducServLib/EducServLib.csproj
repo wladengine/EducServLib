@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{96257583-5FF8-4F63-AED3-96C36DF6477D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EducServLib</RootNamespace>
+    <AssemblyName>EducServLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\..\EducationLib\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="RtfWriter">
+      <HintPath>..\..\StudyPlan\StudyPlan\bin\Release\RtfWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converter.cs" />
+    <Compile Include="Excel2007DataProvider.cs" />
+    <Compile Include="Filters\ConfigFile.cs" />
+    <Compile Include="Filters\Filter.cs" />
+    <Compile Include="Filters\FilterDateFromTo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\FilterDateFromTo.Designer.cs">
+      <DependentUpon>FilterDateFromTo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\FilterFromTo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\FilterFromTo.Designer.cs">
+      <DependentUpon>FilterFromTo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\FilterBool.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\FilterBool.Designer.cs">
+      <DependentUpon>FilterBool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\FilterItem.cs" />
+    <Compile Include="Filters\FilterMultySelect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filters\FilterMultySelect.Designer.cs">
+      <DependentUpon>FilterMultySelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\MultySelectCommonList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filters\MultySelectCommonList.designer.cs">
+      <DependentUpon>MultySelectCommonList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridAsync.cs" />
+    <Compile Include="LinqExtentions.cs" />
+    <Compile Include="ListItem.cs" />
+    <Compile Include="Filters\QueryBuilder.cs" />
+    <Compile Include="Filters\SavedFilter.cs" />
+    <Compile Include="PriemServ\EgeList.cs" />
+    <Compile Include="PriemServ\MarkClass.cs" />
+    <Compile Include="PrintClass.cs" />
+    <Compile Include="PrintServ.cs" />
+    <Compile Include="ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressForm.designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QueryServ.cs" />
+    <Compile Include="ComboServ.cs" />
+    <Compile Include="Util.cs" />
+    <Compile Include="WinFormsServ.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Filters\FilterBool.resx">
+      <DependentUpon>FilterBool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\FilterDateFromTo.resx">
+      <DependentUpon>FilterDateFromTo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\FilterFromTo.resx">
+      <DependentUpon>FilterFromTo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\FilterMultySelect.resx">
+      <DependentUpon>FilterMultySelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filters\MultySelectCommonList.resx">
+      <DependentUpon>MultySelectCommonList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BaseFormsLib\BaseFormsLib\BaseFormsLib.csproj">
+      <Project>{264ef71d-fe21-4be1-b7eb-ccf3b5fd219f}</Project>
+      <Name>BaseFormsLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
