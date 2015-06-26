@@ -105,6 +105,9 @@ namespace EducServLib
 
             if (!lUsedTables.Contains("ed.Person"))
                 lUsedTables.Insert(0, "ed.Person");
+
+            if (!lUsedTables.Contains("ed.extPerson_EducationInfo_Current"))
+                lUsedTables.Insert(1, "ed.extPerson_EducationInfo_Current");
             
             //добавили поле Id 
             lFields.Add(string.Format("{0}.Id", (mainTable==null? _DefaultTable:mainTable)));

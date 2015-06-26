@@ -27,7 +27,7 @@ namespace EducServLib
         //add element
         public void Add(EgeMarkCert mark)
         {
-            EgeCertificateClass cert = new EgeCertificateClass(mark.Doc, mark.Tipograf);
+            EgeCertificateClass cert = new EgeCertificateClass(mark.Doc, mark.Tipograf, mark.Year);
 
             //string doc = mark.Doc;
 
@@ -60,11 +60,13 @@ namespace EducServLib
     {
         public string Doc;
         public string Tipograf;
+        public int Year;
 
-        public EgeCertificateClass(string doc, string tipograf)
+        public EgeCertificateClass(string doc, string tipograf, int year)
         {
             this.Doc = doc;
             this.Tipograf = tipograf;
+            this.Year = year;
         }
 
         public override bool Equals(object obj)
@@ -72,7 +74,7 @@ namespace EducServLib
             if (obj is EgeCertificateClass)
             {
                 EgeCertificateClass cert = (obj as EgeCertificateClass);
-                return (cert.Doc.CompareTo(this.Doc) == 0 && cert.Tipograf.CompareTo(this.Tipograf)==0);
+                return (cert.Year >= 2014 || (cert.Doc.CompareTo(this.Doc) == 0 && cert.Tipograf.CompareTo(this.Tipograf)==0));
             }
 
             return false;
@@ -80,25 +82,27 @@ namespace EducServLib
 
         public override int GetHashCode()
         {
-            return Doc.Length + Tipograf.Length;
+            return Doc.Length + Tipograf.Length + Year;
         }        
     }
 
     //struct to keep ege mark
     public struct EgeMarkCert
     {
-        public EgeMarkCert(string subj, string val, string doc, string tipograf)
+        public EgeMarkCert(string subj, string val, string doc, string tipograf, int year)
         {
             this.Doc = doc;
             this.Value = val;
             this.Subject = subj;
             this.Tipograf = tipograf;
+            this.Year = year;
         }
 
         public string Value;
         public string Doc;
         public string Subject;
         public string Tipograf;
+        public int Year;
     }
 
 }
