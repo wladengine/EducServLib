@@ -94,7 +94,7 @@ namespace EducServLib
         //строит кверю
         public string GetQuery(List<string> list, string mainTable)
         {
-            return GetQuery(list, null,mainTable);
+            return GetQuery(list, null, mainTable);
         }
 
         public string GetQuery(List<string> list, List<string> lTables, string mainTable)
@@ -108,7 +108,11 @@ namespace EducServLib
 
             if (!lUsedTables.Contains("ed.extPerson_EducationInfo_Current"))
                 lUsedTables.Insert(1, "ed.extPerson_EducationInfo_Current");
-            
+            else
+            {
+                lUsedTables.Remove("ed.extPerson_EducationInfo_Current");
+                lUsedTables.Insert(1, "ed.extPerson_EducationInfo_Current");
+            }
             //добавили поле Id 
             lFields.Add(string.Format("{0}.Id", (mainTable==null? _DefaultTable:mainTable)));
 
