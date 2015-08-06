@@ -175,7 +175,64 @@ namespace EducServLib
                 WinFormsServ.Error(exc);
             }
         }
+        public static void PrintAllToExcel2007Colors(DataGridView tbl, string sheetName, string fileName)
+        {
+            try
+            {
+                FileInfo newFile = new FileInfo(fileName);
+                if (newFile.Exists)
+                {
+                    newFile.Delete();  // ensures we create a new workbook
+                    newFile = new FileInfo(fileName);
+                }
+                using (ExcelPackage doc = new ExcelPackage(newFile))
+                {
+                    ExcelWorksheet ws = doc.Workbook.Worksheets.Add(sheetName.Substring(0, sheetName.Length < 30 ? sheetName.Length - 1 : 30));
+                    int i = 1;
+                    int j = 1;
 
+                    ProgressForm prog = new ProgressForm(0, tbl.Rows.Count, 1, ProgressBarStyle.Blocks, "Импорт списка");
+                    prog.Show();
+                    prog.SetProgressText("Импорт списка");
+                    // печать из грида
+                    foreach (DataGridViewColumn dc in tbl.Columns)
+                    {
+                        if (!dc.Visible)
+                            continue;
+                        if (String.IsNullOrEmpty(tbl.Rows[0].Cells[dc.Name].Value.ToString()))
+                            continue;
+ 
+                        i = 1;
+
+                        foreach (DataGridViewRow dr in tbl.Rows)
+                        {
+                            if (!dr.Visible)
+                                continue;
+
+                            string val = dr.Cells[dc.Name].Value == null ? "" : dr.Cells[dc.Name].Value.ToString();
+                            ws.Cells[i, j].Value = val;
+                            if (dr.Cells[dc.Name].Style.BackColor != System.Drawing.Color.Empty)
+                            {
+                                ws.Cells[i, j].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                ws.Cells[i, j].Style.Fill.BackgroundColor.SetColor(dr.Cells[dc.Name].Style.BackColor);
+                            }
+                            i++;
+                        }
+
+                        j++;
+                        prog.PerformStep();
+                    }
+                    prog.Close();
+                    doc.Save();
+                }
+
+                Process.Start(fileName);
+            }
+            catch (Exception exc)
+            {
+                WinFormsServ.Error(exc);
+            }
+        }
         public static DataTable GetDataTableFromExcel(string sheetName)
         {
             DataTable tbl = new DataTable();
