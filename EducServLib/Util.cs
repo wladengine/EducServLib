@@ -183,6 +183,9 @@ namespace EducServLib
 
         public static bool IsRussianString(string s)
         {
+            if (string.IsNullOrEmpty(s))
+                return true;
+
             if (s.ToUpper().IndexOfAny(eng) >= 0)
                 return false;
             else
