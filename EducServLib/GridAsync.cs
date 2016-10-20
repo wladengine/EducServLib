@@ -11,10 +11,10 @@ namespace EducServLib
     public delegate void UpdateListHandler();
     public static class GridAsync
     {
-        public static void UpdateGridAsync(DataGridView dgv, DoWorkEventHandler hndlr, UpdateHandler updateAfter)
+        public static void UpdateGridAsync(DataGridView dgv, DoWorkEventHandler asyncPartHandler, UpdateHandler updateAfter)
         {
             BackgroundWorker bw = new BackgroundWorker();
-            bw.DoWork += hndlr;
+            bw.DoWork += asyncPartHandler;
             bw.RunWorkerCompleted += (sender, args) =>
             {
                 dgv.DataSource = args.Result;
@@ -32,10 +32,10 @@ namespace EducServLib
                 WinFormsServ.Error(ex);
             }
         }
-        public static void UpdateGridAsync(DataGridView dgv, DoWorkEventHandler hndlr, UpdateHandler updateAfter, object prm)
+        public static void UpdateGridAsync(DataGridView dgv, DoWorkEventHandler asyncPartHandler, UpdateHandler updateAfter, object prm)
         {
             BackgroundWorker bw = new BackgroundWorker();
-            bw.DoWork += hndlr;
+            bw.DoWork += asyncPartHandler;
             bw.RunWorkerCompleted += (sender, args) =>
             {
                 dgv.DataSource = args.Result;

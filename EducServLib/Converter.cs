@@ -3,6 +3,7 @@ using System.Data;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace EducServLib
 {
@@ -38,6 +39,25 @@ namespace EducServLib
             {
                 foreach (object o in array)
                     FillData(properties, dt, o);
+
+            }
+
+            return dt;
+        }
+
+        public static DataTable ConvertToDataTable(List<string> lst)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("");
+
+            if (lst.Count > 0)
+            {
+                foreach (string str in lst)
+                {
+                    DataRow rw = dt.NewRow();
+                    rw[0] = str;
+                    dt.Rows.Add(rw);
+                }
 
             }
 

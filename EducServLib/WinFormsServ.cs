@@ -63,7 +63,7 @@ namespace EducServLib
                 // присваиваем Value объект string.Empty
                 cellValue = (cellValue == null ? string.Empty : cellValue);
 
-                if (cellValue.ToString().Contains(sPattern))
+                if (cellValue.ToString().IndexOf(sPattern, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     //dgv.FirstDisplayedScrollingRowIndex = i;
                     //dgv.Rows[i].Selected = true;
@@ -114,7 +114,6 @@ namespace EducServLib
         {
             InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(CultureInfo.GetCultureInfo("en"));
         }
-
         public static void SetRus(object sender, EventArgs e)
         {
             InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(CultureInfo.GetCultureInfo("ru"));
@@ -134,41 +133,81 @@ namespace EducServLib
             }
         }
 
-        public static int FilterGrid(ref DataGridView _dgv, Dictionary<string, string> dicFilters)
+        //public static int FilterGrid(ref DataGridView _dgv, Dictionary<string, string> dicFilters)
+        //{
+        //    int iRowsCount = 0;
+
+        //    BindingContext BindingContect = _dgv.BindingContext;
+        //    CurrencyManager currencyManager1 = (CurrencyManager)BindingContect[_dgv.DataSource];
+        //    currencyManager1.SuspendBinding();
+
+        //    //если все фильтры пустые
+        //    if (dicFilters.Where(x => string.IsNullOrEmpty(x.Value)).Count() != dicFilters.Count)
+        //    {
+        //        for (int i = 0; i < _dgv.Rows.Count; i++)
+        //        {
+        //            bool bVisible = true;
+        //            foreach (var kvp in dicFilters)
+        //            {
+        //                string sColumnName = kvp.Key;
+        //                string sFilterValue = kvp.Value;
+        //                if (_dgv.Rows[i].Cells[sColumnName].Value.ToString().IndexOf(sFilterValue, StringComparison.OrdinalIgnoreCase) < 0)
+        //                    bVisible = false;
+        //            }
+        //            if (bVisible)
+        //                iRowsCount++;
+
+        //            _dgv.Rows[i].Visible = bVisible;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        for (int i = 0; i < _dgv.Rows.Count; i++)
+        //        {
+        //            _dgv.Rows[i].Visible = true;
+        //        }
+        //        iRowsCount = _dgv.Rows.Count;
+        //    }
+
+        //    return iRowsCount;
+        //}
+
+        public static int FilterGrid(ref DataGridView _dgv, Dictionary<string, string> dicFilters, DataTable tblSource)
         {
             int iRowsCount = 0;
 
-            BindingContext BindingContect = _dgv.BindingContext;
-            CurrencyManager currencyManager1 = (CurrencyManager)BindingContect[_dgv.DataSource];
-            currencyManager1.SuspendBinding();
+            DataTable tblRet = new DataTable();
+            foreach (var col in tblSource.Columns.Cast<DataColumn>())
+            {
+                tblRet.Columns.Add(col.ColumnName, col.DataType);
+            }
 
             //если все фильтры пустые
             if (dicFilters.Where(x => string.IsNullOrEmpty(x.Value)).Count() != dicFilters.Count)
             {
-                for (int i = 0; i < _dgv.Rows.Count; i++)
+                for (int i = 0; i < tblSource.Rows.Count; i++)
                 {
                     bool bVisible = true;
                     foreach (var kvp in dicFilters)
                     {
                         string sColumnName = kvp.Key;
                         string sFilterValue = kvp.Value;
-                        if (_dgv.Rows[i].Cells[sColumnName].Value.ToString().IndexOf(sFilterValue, StringComparison.OrdinalIgnoreCase) < 0)
+                        if (tblSource.Rows[i][sColumnName].ToString().IndexOf(sFilterValue, StringComparison.OrdinalIgnoreCase) < 0)
                             bVisible = false;
                     }
                     if (bVisible)
+                    {
+                        tblRet.Rows.Add(tblSource.Rows[i].ItemArray);
                         iRowsCount++;
-
-                    _dgv.Rows[i].Visible = bVisible;
+                    }
                 }
             }
             else
             {
-                for (int i = 0; i < _dgv.Rows.Count; i++)
-                {
-                    _dgv.Rows[i].Visible = true;
-                }
-                iRowsCount = _dgv.Rows.Count;
+                tblRet = tblSource.Copy();
             }
+
+            _dgv.DataSource = tblRet;
 
             return iRowsCount;
         }

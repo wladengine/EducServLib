@@ -19,11 +19,11 @@ namespace EducServLib
         public static List<ExcelParsedCell> GetParsedCellList(string fileName, string sheetName)
         {
             FileInfo newFile = new FileInfo(fileName);
-            if (newFile.Exists)
-            {
-                newFile.Delete();  // ensures we create a new workbook
-                newFile = new FileInfo(fileName);
-            }
+            //if (newFile.Exists)
+            //{
+            //    newFile.Delete();  // ensures we create a new workbook
+            //    newFile = new FileInfo(fileName);
+            //}
 
             List<ExcelParsedCell> result = new List<ExcelParsedCell>();
 
