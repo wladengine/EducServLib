@@ -27,6 +27,11 @@ namespace EducServLib
             MessageBox.Show(StartMessage + "\n" + ex.Message + (ex.InnerException == null ? "" : "\nВнутреннее исключение: " + ex.InnerException.Message), "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        public static void Warning(string msg)
+        {
+            MessageBox.Show(msg, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
         public static void Search(DataGridView dgv, string sColumnName, string sPattern)
         {
             try
